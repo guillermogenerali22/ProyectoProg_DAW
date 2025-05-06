@@ -8,20 +8,8 @@ from GestionPrestamos.GestionPrestamos import GestionPrestamos
 from GestionListados.GestionListados import GestionListados
 from Generales.Login import Login
 from Generales.Logout import Logout
+from Recursos.ui.Menu import Menu
 
-
-def mostrar_menu():
-    print("\n--- MENÚ PRINCIPAL ---")
-    print("2. Vaciar Base de Datos")
-    print("3. Gestionar Errores")
-    print("4. Cargar Base de Datos")
-    print("5. Filtrar Alumnos")
-    print("6. Modificar Datos de Alumnos")
-    print("7. Ver datos alumno")
-    print("8. Gestionar Préstamos")
-    print("9. Generar Listados")
-    print("10. Cerrar Sesión")
-    print("0. Salir")
 
 def login():
     usuario = input("Usuario: ")
@@ -41,7 +29,7 @@ def main():
         while not logueado:
             logueado = login()
         if logueado:
-            mostrar_menu()
+            Menu().mostrar_menu()
         opcion = input("Seleccione una opción: ")
 
 

@@ -4,7 +4,7 @@ from datetime import date
 class GestionPrestamos:
     def ejecutar(self):
         print("--- GESTIÓN DE PRÉSTAMOS ---")
-        nie = input("Introduce el NIE del alumno para gestionar el préstamo: ").strip()
+        dni = input("Introduce el DNI del alumno para gestionar el préstamo: ").strip()
 
         config = Conexion()
         conexion = config().conectar()
@@ -14,7 +14,7 @@ class GestionPrestamos:
 
         try:
             # Verificar existencia del alumno
-            cursor.execute("SELECT nombre, apellidos FROM alumnos WHERE nie = %s", (nie,))
+            cursor.execute("SELECT nombre, apellidos FROM alumnos WHERE dni = %s", (dni,))
             alumno = cursor.fetchone()
 
             if not alumno:
@@ -26,8 +26,8 @@ class GestionPrestamos:
             cursor.execute("""
                 SELECT isbn, fecha_entrega, fecha_devolucion, estado
                 FROM alumnoscrusoslibros
-                WHERE nie = %s
-            """, (nie,))
+                WHERE dni = %s
+            """, (dni,))
             prestamos = cursor.fetchall()
 
             if not prestamos:
@@ -47,9 +47,9 @@ class GestionPrestamos:
                 fecha_devolucion = input("Introduce la fecha de devolución (YYYY-MM-DD): ")
 
                 cursor.execute("""
-                    INSERT INTO alumnoscrusoslibros (nie, curso, isbn, fecha_entrega, fecha_devolucion, estado)
+                    INSERT INTO alumnoscrusoslibros (dni, curso, isbn, fecha_entrega, fecha_devolucion, estado)
                     VALUES (%s, %s, %s, %s, %s, 'P')
-                """, (nie, curso, isbn, fecha_entrega, fecha_devolucion))
+                """, (dni, curso, isbn, fecha_entrega, fecha_devolucion))
                 conexion.commit()
                 print("✅ Préstamo registrado correctamente.")
 
@@ -58,8 +58,8 @@ class GestionPrestamos:
                 cursor.execute("""
                     UPDATE alumnoscrusoslibros
                     SET estado = 'D'
-                    WHERE nie = %s AND isbn = %s AND estado = 'P'
-                """, (nie, isbn))
+                    WHERE dni = %s AND isbn = %s AND estado = 'P'
+                """, (dni, isbn))
                 conexion.commit()
                 print("✅ Libro marcado como devuelto.")
 

@@ -20,11 +20,11 @@ class GestionListados:
         try:
             if opcion == "1":
                 # Generar listado de alumnos
-                cursor.execute("SELECT nie, nombre, apellidos, tramo, bilingue FROM alumnos")
+                cursor.execute("SELECT dni, nombre, apellidos, tramo, bilingue FROM alumnos")
                 alumnos = cursor.fetchall()
                 self.exportar_csv(
                     alumnos,
-                    ["NIE", "Nombre", "Apellidos", "Tramo", "Bilingüe"],
+                    ["DNI", "Nombre", "Apellidos", "Tramo", "Bilingüe"],
                     "listado_alumnos.csv"
                 )
                 print("✅ Listado de alumnos exportado como 'listado_alumnos.csv'")
