@@ -11,7 +11,7 @@ class CargarBBDD:
         cursor = conexion.cursor()
 
         # Compilar expresiones regulares
-        val_dni = re.compile(r"^\d{8}[A-Z]$")
+        val_nie = re.compile(r"^[XYZ]\d{7}[A-Z]$")
         val_nombre = re.compile(r"^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$")
         val_isbn = re.compile(r"^(97(8|9))?\d{9}(\d|X)$")
 
@@ -20,9 +20,9 @@ class CargarBBDD:
 
             #Cargando datos en alumnos
             if tabla == "alumnos":
-                dni = input("DNI: ").strip().upper()
-                if not val_dni.match(dni):
-                    print("❌ DNI no válido.")
+                nie = input("NIE: ").strip().upper()
+                if not val_nie.match(nie):
+                    print("❌ NIE no válido.")
                     return
                 nombre = input("Nombre: ").strip().title()
                 if not val_nombre.match(nombre):
@@ -34,8 +34,8 @@ class CargarBBDD:
                     return
                 tramo = input("Tramo (0, I, II): ").strip().upper()
                 bilingue = input("¿Es bilingüe? (0 = Sí, 1 = No): ").strip()
-                sql = "INSERT INTO alumnos (dni, nombre, apellidos, tramo, bilingue) VALUES (%s, %s, %s, %s, %s)"
-                datos = (dni, nombre, apellidos, tramo, bilingue)
+                sql = "INSERT INTO alumnos (nie, nombre, apellidos, tramo, bilingue) VALUES (%s, %s, %s, %s, %s)"
+                datos = (nie, nombre, apellidos, tramo, bilingue)
 
             #Cargando datos en cursos
             elif tabla == "cursos":
@@ -88,4 +88,4 @@ class CargarBBDD:
             print(f"❌ Error al insertar datos: {e}")
         finally:
             cursor.close()
-            config.cerrar()
+            config.close()
