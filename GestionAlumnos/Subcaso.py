@@ -8,7 +8,8 @@ class Subcaso:
         # Antes de modificar, mostrar datos completos
         self.ver_datos_alumno(nie)
 
-        conexion = Conexion().conectar()
+        config = Conexion()
+        conexion = config.conectar()
         if not conexion:
             return
         cursor = conexion.cursor()
@@ -56,13 +57,14 @@ class Subcaso:
             print(f"❌ Error al modificar los datos del alumno: {e}")
         finally:
             cursor.close()
-            conexion.close()
+            config.cerrar()
 
     def ver_datos_alumno(self, nie):
         """
         Muestra datos del alumno y sus préstamos.
         """
-        conexion = Conexion().conectar()
+        config = Conexion()
+        conexion = config.conectar()
         if not conexion:
             return
         cursor = conexion.cursor()
@@ -101,4 +103,4 @@ class Subcaso:
             print(f"❌ Error al obtener datos del alumno: {e}")
         finally:
             cursor.close()
-            conexion.close()
+            config.cerrar()

@@ -4,10 +4,10 @@ import re
 class CargarBBDD:
     def ejecutar(self):
         print("--- CARGA DE DATOS ---")
-        conexion = Conexion().conectar()
+        config = Conexion()
+        conexion = config.conectar()
         if not conexion:
             return
-
         cursor = conexion.cursor()
 
         # Compilar expresiones regulares
@@ -88,4 +88,4 @@ class CargarBBDD:
             print(f"❌ Error al insertar datos: {e}")
         finally:
             cursor.close()
-            conexion.close()
+            config.cerrar()

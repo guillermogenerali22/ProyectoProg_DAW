@@ -1,3 +1,5 @@
+from lib2to3.fixes.fix_input import context
+
 from Recursos.Configuracion import Conexion
 
 class FiltrarAlumnos:
@@ -8,7 +10,8 @@ class FiltrarAlumnos:
         print("--- FILTRAR ALUMNOS ---")
         filtro = input("Introduce parte del nombre o NIE del alumno para filtrar: ").strip()
 
-        conexion = Conexion().conectar()
+        config = Conexion()
+        conexion = config.conectar()
         if not conexion:
             return
         cursor = conexion.cursor()
@@ -31,4 +34,4 @@ class FiltrarAlumnos:
             print(f"❌ Error al filtrar alumnos: {e}")
         finally:
             cursor.close()
-            conexion.close()
+            config.cerrar()

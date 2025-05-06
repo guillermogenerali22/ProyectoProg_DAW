@@ -19,12 +19,13 @@ class VaciarBBDD:
             "materias",
             "cursos"
         ]
-
-        conexion = Conexion().conectar()
+        #Conexion a la BBDD
+        config = Conexion()
+        conexion = config.conectar()
         if not conexion:
             return
-
         cursor = conexion.cursor()
+
         try:
             # Vaciar cada tabla en la lista.
             for tabla in tablas:
@@ -35,4 +36,4 @@ class VaciarBBDD:
             print(f"❌ Error al vaciar la base de datos: {e}")
         finally:
             cursor.close()
-            conexion.close()
+            config.cerrar()

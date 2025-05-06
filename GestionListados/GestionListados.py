@@ -11,7 +11,8 @@ class GestionListados:
         print("2. Listado personalizado")
         opcion = input("Seleccione una opción (1-2): ").strip()
 
-        conexion = Conexion().conectar()
+        config = Conexion()
+        conexion = config().conectar()
         if not conexion:
             return
         cursor = conexion.cursor()
@@ -46,7 +47,7 @@ class GestionListados:
             print(f"❌ Error al generar listado: {e}")
         finally:
             cursor.close()
-            conexion.close()
+            config.cerrar()
 
     def exportar_csv(self, datos, encabezados, nombre_archivo):
         """

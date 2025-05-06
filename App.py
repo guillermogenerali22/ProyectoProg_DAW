@@ -22,11 +22,12 @@ def mostrar_menu():
     print("9. Generar Listados")
     print("10. Cerrar Sesión")
     print("0. Salir")
+
 def login():
     usuario = input("Usuario: ")
     contraseña = input("Contraseña: ")
-    login = Login(usuario, contraseña)
-    if login.validate():
+    sesion = Login(usuario, contraseña)
+    if sesion.validate():
         print("Acceso concedido")
         return True
     else:

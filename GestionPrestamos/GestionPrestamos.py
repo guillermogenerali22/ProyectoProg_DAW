@@ -6,7 +6,8 @@ class GestionPrestamos:
         print("--- GESTIÓN DE PRÉSTAMOS ---")
         nie = input("Introduce el NIE del alumno para gestionar el préstamo: ").strip()
 
-        conexion = Conexion().conectar()
+        config = Conexion()
+        conexion = config().conectar()
         if not conexion:
             return
         cursor = conexion.cursor()
@@ -69,4 +70,4 @@ class GestionPrestamos:
             print(f"❌ Error en la gestión de préstamos: {e}")
         finally:
             cursor.close()
-            conexion.close()
+            config.cerrar()
