@@ -1,6 +1,11 @@
 import mysql.connector
 
+#Claves de inicio de sesion
+USUARIO:str = "admin"
+CONTRASEÑA:str = "salchicha"
+
 class Conexion:
+    """Conexion a la BBDD"""
     def __init__(self):
         self.conexion = None
 
@@ -10,7 +15,7 @@ class Conexion:
                 host='localhost',
                 user='root',
                 password='',
-                database='proyectobueno_copia'
+                database='proyectobueno'
             )
             return self.conexion
         except mysql.connector.Error as e:
