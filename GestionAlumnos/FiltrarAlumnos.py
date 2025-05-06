@@ -18,8 +18,8 @@ class FiltrarAlumnos:
 
         # Ejecutar consulta con parámetros.
         try:
-            sql = "SELECT nie, nombre, apellidos, tramo, bilingue FROM alumnos WHERE nombre LIKE %s OR nie LIKE %s"
-            cursor.execute(sql, (f"%{filtro}%", f"%{filtro}%"))
+            sql = "SELECT nie, nombre, apellidos, tramo, bilingue FROM alumnos WHERE nombre LIKE %s OR nie LIKE %s or apellidos LIKE %s"
+            cursor.execute(sql, (f"%{filtro}%", f"%{filtro}%", f"%{filtro}%"))
             alumnos = cursor.fetchall()
 
             if not alumnos:

@@ -41,10 +41,8 @@ class CargarBBDD:
             elif tabla == "cursos":
                 curso = input("Nombre del curso: ").strip()
                 nivel = input("Nivel: ").strip()
-                # Validar texto
-                if not val_nombre.match(curso) or not val_nombre.match(nivel):
-                    print("❌ Curso o nivel no válidos.")
-                    return
+
+
                 sql = "INSERT INTO cursos (curso, nivel) VALUES (%s, %s)"
                 datos = (curso, nivel)
 
@@ -52,9 +50,7 @@ class CargarBBDD:
             elif tabla == "materias":
                 id_materia = input("ID de la materia: ").strip()
                 nombre_mat = input("Nombre: ").strip().title()
-                if not val_nombre.match(nombre_mat):
-                    print("❌ Nombre de materia no válido.")
-                    return
+
                 departamento = input("Departamento: ").strip().title()
                 if not val_nombre.match(departamento):
                     print("❌ Departamento no válido.")
@@ -88,4 +84,4 @@ class CargarBBDD:
             print(f"❌ Error al insertar datos: {e}")
         finally:
             cursor.close()
-            config.close()
+            config.cerrar()

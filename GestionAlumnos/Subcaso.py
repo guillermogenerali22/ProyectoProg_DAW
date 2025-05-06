@@ -59,10 +59,13 @@ class Subcaso:
             cursor.close()
             config.cerrar()
 
-    def ver_datos_alumno(self, nie):
+    def ver_datos_alumno(self):
         """
         Muestra datos del alumno y sus préstamos.
         """
+        nie = input("Introduce el NIE del alumno: ").strip()
+
+
         config = Conexion()
         conexion = config.conectar()
         if not conexion:
