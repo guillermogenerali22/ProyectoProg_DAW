@@ -55,6 +55,8 @@ def main():
         elif opcion == "0":
             print("Saliendo del programa...")
             sys.exit()
+        elif opcion == "1":
+            CargarBBDD().ver_datos()
         else:
             print("Opción no válida o no tiene permisos. Por favor seleccione nuevamente.")
 

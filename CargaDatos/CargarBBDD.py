@@ -85,3 +85,35 @@ class CargarBBDD:
         finally:
             cursor.close()
             config.cerrar()
+
+    def ver_datos(self):
+        """
+        Muestra los datos de la tabla seleccionada.
+        """
+        config = Conexion()
+        conexion = config.conectar()
+        if not conexion:
+            return
+        cursor = conexion.cursor()
+
+        try:
+            tablas = [
+                "alumnoscrusoslibros",
+                "alumnos",
+                "libros",
+                "materias",
+                "cursos"
+            ]
+            for tabla in tablas:
+                sql = f"SELECT * FROM {tabla}"
+                cursor.execute(sql)
+                datos = cursor.fetchall()
+                print(f"\nDatos de la tabla '{tabla}':")
+                for fila in datos:
+                    print(fila)
+
+        except Exception as e:
+            print(f"❌ Error al mostrar datos: {e}")
+        finally:
+            cursor.close()
+            config.cerrar()
