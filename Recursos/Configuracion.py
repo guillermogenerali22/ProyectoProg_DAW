@@ -1,8 +1,8 @@
 import mysql.connector
 
 #Claves de inicio de sesion
-USUARIO:str = "admin"
-CONTRASEÑA:str = "salchicha"
+USUARIO:str = ""#"admin"
+CONTRASEÑA:str = ""#"salchicha"
 
 class Conexion:
     """Conexion a la BBDD"""
@@ -15,7 +15,9 @@ class Conexion:
                 host='localhost',
                 user='root',
                 password='',
-                database='proyectobueno'
+                #database='proyectobueno'
+                database = 'proyectobueno_copia'
+
             )
             return self.conexion
         except mysql.connector.Error as e:

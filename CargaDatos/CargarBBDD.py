@@ -39,6 +39,7 @@ class CargarBBDD:
 
             #Cargando datos en cursos
             elif tabla == "cursos":
+
                 curso = input("Nombre del curso: ").strip()
                 nivel = input("Nivel: ").strip()
 

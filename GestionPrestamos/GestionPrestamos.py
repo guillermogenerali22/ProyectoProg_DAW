@@ -7,7 +7,7 @@ class GestionPrestamos:
         nie = input("Introduce el NIE del alumno para gestionar el préstamo: ").strip()
 
         config = Conexion()
-        conexion = config().conectar()
+        conexion = config.conectar()
         if not conexion:
             return
         cursor = conexion.cursor()
