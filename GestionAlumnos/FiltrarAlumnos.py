@@ -36,7 +36,6 @@ class FiltrarAlumnos:
             else:
                 CargaDatos.GestionErrores.GestionErrores.contar_alumnos(conexion)
 
-"""
 
         except Exception as e:
             print(f"❌ Error al filtrar alumnos: {e}")
