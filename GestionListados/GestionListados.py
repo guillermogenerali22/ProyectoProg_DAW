@@ -9,6 +9,7 @@ class GestionListados:
         print("--- GENERACIÓN DE LISTADOS ---")
         print("1. Listado de alumnos")
         print("2. Listado personalizado")
+        print("3. Listado de todo")
         opcion = input("Seleccione una opción (1-2): ").strip()
 
         config = Conexion()
@@ -41,6 +42,22 @@ class GestionListados:
                     print(f"✅ Listado de {tabla} exportado como 'listado_{tabla}.csv'")
                 else:
                     print("❌ Tabla no válida para listado.")
+
+            elif opcion == "3":
+                tablas = {
+                    "alumnos": ["nie", "nombre", "apellidos", "tramo", "bilingue"],
+                    "cursos": None,
+                    "materias": None,
+                    "libros": None
+                }
+
+                for tabla, columnas in tablas.items():
+                    cursor.execute(f"SELECT * FROM {tabla}")
+                    filas = cursor.fetchall()
+                    if columnas is None:
+                        columnas = [desc[0] for desc in cursor.description]
+                    self.exportar_csv(filas, columnas, f"listado_{tabla}.csv")
+                    print(f"✅ Listado de {tabla} exportado como 'listado_{tabla}.csv'")
             else:
                 print("Opción inválida.")
         except Exception as e:

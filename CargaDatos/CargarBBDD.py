@@ -72,7 +72,7 @@ class CargarBBDD:
                 cursor.execute(hay_cursos)
                 cantidad_cursos = cursor.fetchone()
                 if cantidad_materias[0] and cantidad_cursos[0] > 0:
-                    isbn = input("ISBN: ").strip().replace('-', '')
+                    isbn = input("ISBN: ").strip().replace('-', '').upper()
                     if not val_isbn.match(isbn):
                         print("❌ ISBN no válido.")
                         return
