@@ -1,5 +1,7 @@
 from Recursos.Configuracion import Conexion
 import re
+from CargaDatos.GestionErrores import GestionErrores
+
 
 class CargarBBDD:
     def ejecutar(self):
@@ -59,19 +61,33 @@ class CargarBBDD:
                 sql = "INSERT INTO materias (id, nombre, departamento) VALUES (%s, %s, %s)"
                 datos = (id_materia, nombre_mat, departamento)
 
+
+
             #Cargando datos en libros
             elif tabla == "libros":
-                isbn = input("ISBN: ").strip().replace('-', '')
-                if not val_isbn.match(isbn):
-                    print("❌ ISBN no válido.")
-                    return
-                titulo = input("Título: ").strip()
-                autor = input("Autor: ").strip().title()
-                ejemplares = input("Número de ejemplares: ").strip()
-                id_materia = input("ID de materia: ").strip()
-                id_curso = input("ID de curso: ").strip()
-                sql = "INSERT INTO libros (isbn, titulo, autor, numero_ejemplares, id_materia, id_curso) VALUES (%s, %s, %s, %s, %s, %s)"
-                datos = (isbn, titulo, autor, ejemplares, id_materia, id_curso)
+                hay_materias = "SELECT COUNT(*) FROM materias"
+                cursor.execute(hay_materias)
+                cantidad_materias = cursor.fetchone()
+                hay_cursos = "SELECT COUNT(*) FROM cursos"
+                cursor.execute(hay_cursos)
+                cantidad_cursos = cursor.fetchone()
+                if cantidad_materias[0] and cantidad_cursos[0] > 0:
+                    isbn = input("ISBN: ").strip().replace('-', '')
+                    if not val_isbn.match(isbn):
+                        print("❌ ISBN no válido.")
+                        return
+                    titulo = input("Título: ").strip()
+                    autor = input("Autor: ").strip().title()
+                    ejemplares = input("Número de ejemplares: ").strip()
+                    id_materia = input("ID de materia: ").strip()
+                    id_curso = input("ID de curso: ").strip()
+                    sql = "INSERT INTO libros (isbn, titulo, autor, numero_ejemplares, id_materia, id_curso) VALUES (%s, %s, %s, %s, %s, %s)"
+                    datos = (isbn, titulo, autor, ejemplares, id_materia, id_curso)
+
+                else:
+                    GestionErrores.contar_materias(conexion)
+
+
 
             else:
                 print("❌ Tabla no reconocida.")

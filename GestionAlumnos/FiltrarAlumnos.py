@@ -7,7 +7,6 @@ class FiltrarAlumnos:
     """
     def ejecutar(self):
         print("--- FILTRAR ALUMNOS ---")
-        filtro = input("Introduce parte del nombre o NIE del alumno para filtrar: ").strip()
 
         config = Conexion()
         conexion = config.conectar()
@@ -22,6 +21,8 @@ class FiltrarAlumnos:
             cursor.execute(verificacion)
             cantidad_alumnos = cursor.fetchone()
             if cantidad_alumnos[0] > 0:
+                filtro = input("Introduce parte del nombre o NIE del alumno para filtrar: ").strip()
+
                 sql = "SELECT nie, nombre, apellidos, tramo, bilingue FROM alumnos WHERE nombre LIKE %s OR nie LIKE %s or apellidos LIKE %s"
                 cursor.execute(sql, (f"%{filtro}%", f"%{filtro}%", f"%{filtro}%"))
                 alumnos = cursor.fetchall()
