@@ -21,6 +21,13 @@ class FiltrarAlumnos:
             cursor.execute(verificacion)
             cantidad_alumnos = cursor.fetchone()
             if cantidad_alumnos[0] > 0:
+                #Muestro los alumnos nates de el filtro
+                sql = "select nie, nombre, apellidos from alumnos"
+                cursor.execute(sql)
+                alumnos = cursor.fetchall()
+                for alumno in alumnos:
+                    print(f"NIE: {alumno[0]} | Nombre: {alumno[1]} {alumno[2]}")
+
                 filtro = input("Introduce parte del nombre o NIE del alumno para filtrar: ").strip()
 
                 sql = "SELECT nie, nombre, apellidos, tramo, bilingue FROM alumnos WHERE nombre LIKE %s OR nie LIKE %s or apellidos LIKE %s"
@@ -35,7 +42,7 @@ class FiltrarAlumnos:
                 for alumno in alumnos:
                     print(f"NIE: {alumno[0]} | Nombre: {alumno[1]} {alumno[2]} | Tramo: {alumno[3]} | Bilingüe: {'Sí' if alumno[4] == 0 else 'No'}")
             else:
-                CargaDatos.GestionErrores.GestionErrores.contar_alumnos(conexion)
+                CargaDatos.GestionErrores.GestionErrores.contar_datos(conexion)
 
 
         except Exception as e:
