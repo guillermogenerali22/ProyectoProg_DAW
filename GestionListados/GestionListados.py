@@ -12,7 +12,7 @@ class GestionListados:
         opcion = input("Seleccione una opción (1-2): ").strip()
 
         config = Conexion()
-        conexion = config().conectar()
+        conexion = config.conectar()
         if not conexion:
             return
         cursor = conexion.cursor()
