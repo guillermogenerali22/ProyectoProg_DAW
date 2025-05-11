@@ -15,8 +15,8 @@ class Conexion:
                 host='localhost',
                 user='root',
                 password='',
-                database='proyectobueno'
-                #database = 'proyectobueno_copia'
+                #database='proyectobueno'
+                database = 'proyectobueno_copia'
 
             )
             return self.conexion

@@ -19,7 +19,7 @@ def login():
         print("Acceso concedido")
         return True
     else:
-        print("Acceso denegado")
+        print("Acceso denegado 🙅")
         return False
 
 def main():

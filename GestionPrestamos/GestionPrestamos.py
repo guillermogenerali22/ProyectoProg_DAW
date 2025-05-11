@@ -42,16 +42,27 @@ class GestionPrestamos:
 
             if opcion == 'P':
                 isbn = input("Introduce el ISBN del libro a prestar: ")
+                verificacion = "SELECT numero_ejemplares FROM libros WHERE isbn = %s"
+                cursor.execute(verificacion,
+                               (isbn,))  # todo que cuente el nº de ejemplares. Cuando el primer valor de la tupla sea 0, entonces no se puede prestar el libro,
+                ejemplares = cursor.fetchone()
+                if ejemplares[0] == 0:
+                    print("✌️ No hay ejemplares disponibles para prestar.")
+                    return
                 curso = input("Introduce el curso del alumno: ")
                 fecha_entrega = date.today()
                 fecha_devolucion = input("Introduce la fecha de devolución (YYYY-MM-DD): ")
 
                 cursor.execute("""
-                    INSERT INTO alumnoscrusoslibros (nie, curso, isbn, fecha_entrega, fecha_devolucion, estado)
-                    VALUES (%s, %s, %s, %s, %s, 'P')
-                """, (nie, curso, isbn, fecha_entrega, fecha_devolucion))
+                               INSERT INTO alumnoscrusoslibros (nie, curso, isbn, fecha_entrega, fecha_devolucion, estado)
+                               VALUES (%s, %s, %s, %s, %s, 'P')
+                               """, (nie, curso, isbn, fecha_entrega, fecha_devolucion))
+                cursor.execute("UPDATE libros SET numero_ejemplares = (numero_ejemplares-1) WHERE isbn = %s",
+                               (isbn,))
+
                 conexion.commit()
                 print("✅ Préstamo registrado correctamente.")
+
 
             elif opcion == 'D':
                 isbn = input("Introduce el ISBN del libro a devolver: ")
@@ -60,6 +71,9 @@ class GestionPrestamos:
                     SET estado = 'D'
                     WHERE nie = %s AND isbn = %s AND estado = 'P'
                 """, (nie, isbn))
+                #todo hay q hacer una sentencia que recoja el estado del libro, si el libro esta en la tabla alumnoscrusos y tiene estado = 'p' entonces saldra el mensaje y se actualizara
+                cursor.execute("UPDATE libros SET numero_ejemplares = (numero_ejemplares+1) WHERE isbn = %s", (isbn,))
+
                 conexion.commit()
                 print("✅ Libro marcado como devuelto.")
 
