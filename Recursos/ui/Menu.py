@@ -3,7 +3,9 @@ class Menu:
         pass
 
     def mostrar_menu(self):
-        print("\n--- MENÚ PRINCIPAL ---")
+        print("-".center(50, "-"))
+        print("MENÚ PRINCIPAL".center(50, " "))
+        print("-".center(50, "-"))
         print("2. Vaciar Base de Datos")
         print("3. Gestionar Errores")
         print("4. Cargar Base de Datos")
@@ -13,6 +15,7 @@ class Menu:
         print("8. Gestionar Préstamos")
         print("9. Generar Listados")
         print("10. Cerrar Sesión")
+        print("11. Copia de Seguridad")
         print("0. Salir")
 
 

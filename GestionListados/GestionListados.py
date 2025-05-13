@@ -76,3 +76,32 @@ class GestionListados:
             escritor.writerow(encabezados)
             for fila in datos:
                 escritor.writerow(fila)
+
+    def copia_de_seguridad(self):
+        """
+        Crea un archivo CSV con todos los datos de todas las tablas de la base de datos.
+        """
+        config = Conexion()
+        conexion = config.conectar()
+        if not conexion:
+            return
+        cursor = conexion.cursor()
+
+        try:
+            tablas = ["alumnos", "cursos", "materias", "libros"]
+            with open("copia_de_seguridad.csv", mode="w", newline="", encoding="utf-8") as archivo:
+                escritor = csv.writer(archivo)
+                for tabla in tablas:
+                    cursor.execute(f"SELECT * FROM {tabla}")
+                    filas = cursor.fetchall()
+                    columnas = [desc[0] for desc in cursor.description]
+                    escritor.writerow([f"Tabla: {tabla}"])
+                    escritor.writerow(columnas)
+                    escritor.writerows(filas)
+                    escritor.writerow([])  # Línea en blanco entre tablas
+            print("✅ Copia de seguridad creada como 'copia_de_seguridad.csv'")
+        except Exception as e:
+            print(f"❌ Error al crear la copia de seguridad: {e}")
+        finally:
+            cursor.close()
+            config.cerrar()

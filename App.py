@@ -30,9 +30,9 @@ def main():
             logueado = login()
         if logueado:
             Menu().mostrar_menu()
-        opcion = input("Seleccione una opción: ")
+        opcion = input("🙈Seleccione una opción: ")
 
-
+#todo crear  constantes en vez de numeros
         if opcion == "2" and logueado:
             VaciarBBDD().ejecutar()
         elif opcion == "3" and logueado:
@@ -57,6 +57,9 @@ def main():
             sys.exit()
         elif opcion == "1":
             CargarBBDD().ver_datos()
+        elif opcion == "11" and logueado:
+            print("Haciendo copia de seguridad...")
+            GestionListados().copia_de_seguridad()
         else:
             print("Opción no válida o no tiene permisos. Por favor seleccione nuevamente.")
 

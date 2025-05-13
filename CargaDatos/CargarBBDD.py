@@ -3,7 +3,7 @@ import re
 from CargaDatos.GestionErrores import GestionErrores
 
 
-class CargarBBDD:
+class CargarBBDD: #todo hay q mostrar los datos filtrados a la vez q se insertan los alumnos. sentencias de filtro para añadir las PK y FK
     def ejecutar(self):
         print("--- CARGA DE DATOS ---")
         config = Conexion()
@@ -13,7 +13,7 @@ class CargarBBDD:
         cursor = conexion.cursor()
 
         # Compilar expresiones regulares
-        val_nie = re.compile(r"^[XYZ]\d{7}[A-Z]$")
+        val_nie = re.compile(r"^[XYZ]?\d{7}[A-Z]$")
         val_nombre = re.compile(r"^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$")
         val_isbn = re.compile(r"^(97(8|9))?\d{9}(\d|X)$")
 
@@ -22,7 +22,7 @@ class CargarBBDD:
 
             #Cargando datos en alumnos
             if tabla == "alumnos":
-                nie = input("NIE: ").strip().upper()
+                nie = input("NIE o DNI: ").strip().upper()
                 if not val_nie.match(nie):
                     print("❌ NIE no válido.")
                     return
